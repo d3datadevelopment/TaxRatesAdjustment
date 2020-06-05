@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+$filePath = '../d3/taxratesadjustment/bootstrap.php';
+$currentDirectory = __DIR__ . '/';
+$filePath = $currentDirectory . $filePath;
+
+require($filePath);
+
+$change = new raiseTaxRate();
+try {
+    $change->run();
+} catch ( \Exception $e) {
+    echo $e->getMessage();
+}

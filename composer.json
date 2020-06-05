@@ -1,0 +1,20 @@
+{
+    "name": "d3/taxratesadjustment",
+    "description": "adjusts the tax rates for the German economic stimulus package 2020 / 2021",
+    "type": "library",
+    "require": {
+        "oxid-esales/oxideshop-ce": "^6.0"
+    },
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "D3 Data Development (Inh. Thomas Dartsch)",
+            "email": "info@shopmodule.com",
+            "homepage": "http://www.d3data.de"
+        }
+    ],
+    "bin": [
+        "bin/reduceTaxRate",
+        "bin/raiseTaxRate"
+    ]
+}
