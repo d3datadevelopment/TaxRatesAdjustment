@@ -22,7 +22,7 @@ use OxidEsales\Eshop\Core\Registry;
 class raiseTaxRate extends taxRateAbstract
 {
     public $execPeriod = [
-        '2020-12-30',
+        '2020-12-28',
         '2021-01-03',
     ];
 
