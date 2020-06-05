@@ -1,13 +1,11 @@
 <?php 
 
-use OxidEsales\ComposerPlugin\Installer\Package\ShopPackageInstaller;
-
 $bootstrapFileName = getenv('ESHOP_BOOTSTRAP_PATH');
 if (!empty($bootstrapFileName)) {
     $bootstrapFileName = realpath(trim(getenv('ESHOP_BOOTSTRAP_PATH')));
 } else {
     $count = 0;
-    $bootstrapFileName = '../../'. ShopPackageInstaller::SHOP_SOURCE_DIRECTORY .'/bootstrap.php';
+    $bootstrapFileName = '../../source/bootstrap.php';
     $currentDirectory = __DIR__ . '/';
     while ($count < 5) {
         $count++;

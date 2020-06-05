@@ -1,13 +1,13 @@
 #!/usr/bin/env php
 <?php
 
-$filePath = '../d3/taxratesadjustment/bootstrap.php';
+$filePath = '../bootstrap.php';
 $currentDirectory = __DIR__ . '/';
 $filePath = $currentDirectory . $filePath;
 
 require($filePath);
 
-$change = new raiseTaxRate();
+$change = new \D3\TaxRatesAdjustment\Models\raiseTaxRate();
 try {
     $change->run();
 } catch ( \Exception $e) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace D3\TaxRatesAdjustment\Model;
+namespace D3\TaxRatesAdjustment\Models;
 
 class raiseTaxRate
 {

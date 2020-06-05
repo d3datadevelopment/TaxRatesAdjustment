@@ -13,6 +13,11 @@
             "homepage": "http://www.d3data.de"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "D3\\TaxRatesAdjustment\\": ""
+        }
+    },
     "bin": [
         "bin/reduceTaxRate",
         "bin/raiseTaxRate"
