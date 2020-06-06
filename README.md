@@ -49,8 +49,8 @@ composer require d3/taxratesadjustment:"^2.0" --no-dev
 
 ## Ausführung
 
-- Bitte führen Sie die Umstellung rechtzeitig vorab in einer Testinstallation durch und prüfen Ihren Shop, um Fehler im Livebetrieb zu vermeiden. Ändern Sie dazu in "`./Models/reduceTaxRate.php` sowie `./Models/raiseTaxRate.php`" die erlaubten Zeitfenster auf Ihren Testzeitpunkt.
-- Legen Sie sich unbedingt vorab eine Datensicherung an. Die Software wird nach bestem Wissen erstellt. Durch die Vielzahl an möglichen Shopkonstellationen können  wir jedoch keine Gewährleistung für die richtige Ausführung und eventuelle Folgen übernehmen.
+- Bitte führen Sie die Umstellung rechtzeitig vorab in einer Testinstallation durch und prüfen Ihren Shop, um Fehler im Livebetrieb zu vermeiden. Zum Übergehen der Datumsprüfung können Sie den folgenden Befehlen einfach den Parameter `-d` anhängen: `[ Shoppfad ]/vendor/bin/reduceTaxRate -d`. Für den Livebetrieb soll der Parameter nicht verwendet werden.
+- Legen Sie sich unbedingt vor jeder Ausführung eine Datensicherung an. Die Software wird nach bestem Wissen erstellt. Durch die Vielzahl an möglichen Shopkonstellationen können  wir jedoch keine Gewährleistung für die richtige Ausführung und eventuelle Folgen übernehmen.
 
 Richten Sie einen ersten Cronjob ein, der idealerweise am 01.07.2020 um 00:00 folgendes Script startet, um die Steuersätze zu senken. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell aus:
 

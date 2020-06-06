@@ -39,6 +39,12 @@ abstract class taxRateAbstract
      */
     public function isInExecutableTimeRange()
     {
+        // skip time check, when parameter -d is set
+        $opts = getopt("d");
+        if (is_array($opts) && isset($opts['d'])) {
+            return true;
+        }
+
         list($from, $to) = $this->execPeriod;
 
         return (time() > strtotime($from)) && (time() < strtotime($to));
