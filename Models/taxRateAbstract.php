@@ -61,19 +61,31 @@ abstract class taxRateAbstract
             die();
         };
 
-        $this->changeDefaultTaxRates();
+        $this->changeTaxRates();
     }
 
     /**
      * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
      * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
      */
-    public function changeDefaultTaxRates() {
+    public function changeTaxRates()
+    {
         $shop = new Shop();
 
-        $q = "SELECT oxid FROM " . $shop->getCoreTableName() . " WHERE 1";
+        // use shop list, when parameter -d is set
+        $opts = getopt("s:");
+
+        $where = isset($opts['s']) ?
+            "oxid IN (".implode(', ', array_map(
+                    function ($a) {return DatabaseProvider::getDb()->quote(trim($a));},
+                    explode(',', $opts['s']))
+            ).")" :
+            "1";
+
+        $q = "SELECT oxid FROM " . $shop->getCoreTableName() . " WHERE ".$where ;
+
         foreach ( DatabaseProvider::getDb( DatabaseProvider::FETCH_MODE_ASSOC )->getAll( $q ) as $record ) {
-            $shopId = (int) $record['oxid'];
+            $shopId = (int) $record["oxid"];
             $this->switchToShop($shopId);
             $this->changeDefaultTaxRate( $shopId );
             $this->changeArticlesTaxRate( $shopId );

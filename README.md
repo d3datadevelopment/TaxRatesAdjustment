@@ -10,13 +10,13 @@ Die Anpassung kann über entsprechende Cronjobs zeitgesteuert zum Stichtermin au
 
 Die Scripte ändern:
 - den im Shop eingestellten allgemeinen Steuersatz
-- an den Artikeln hinterlegte spezielle Steuersätze
+- an den Artikeln hinterlegten speziellen Steuersätzen
 
 - von 19% zu 16% und
 - von 7% zu 5%
 - sowie später auch zurück
 
-In Multishopinstallationen (Enterprise Edition) werden die Angaben innerhalb jedes bestehenden Subshop geändert.
+Bei Multishopinstallationen (Enterprise Edition) können die zu aktualisierenden Subshops definiert werden.
 
 Die Scripte prüfen anhand der Systemzeit mit kleinen Toleranzen (+/-3 Tage um das jeweilige Umstellungsdatum), ob die Veränderung ausgeführt werden darf. Damit wird verhindert, dass ein versehentliches Auslösen zur falschen Shopkonfiguration führt.
 
@@ -29,8 +29,6 @@ Weiterhin werden auch die absoluten Artikelpreise und Berechnungswege nicht ange
 - Werden Artikelpreise netto gepflegt und brutto angezeigt, ändern sich die daraus errechneten Bruttopreise.
 
 Passen Sie die Artikelpreise danach ggf. an.
-
-In Multishopinstallationen (Enterprise Edition) können einzelne Subshops nicht von Änderungen ausgenommen werden. Es werden immer alle Subshops kontrolliert.
 
 Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim Zurücksetzen ebenfalls auf 19% bzw. 7% angehoben. Eine Unterscheidung, welcher Steuersatz vorab reduziert wurde, gibt es nicht. Diese Anpassung muss dann manuell durchgeführt werden. 
 
@@ -68,6 +66,8 @@ Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 f
 Für die Einrichtung der Cronjobs kontakten Sie bei Fragen bitte Ihren Hostingprovider.
 
 Püfen Sie nach Ausführung der Scripte bitte zeitnah Ihren Shop auf richtige Funktion.
+
+Zu Definition, welche Subshops bearbeitet werden sollen, kann der Parameter `-s 1,3,4` verwendet werden. Setzen Sie statt der `1,3,4` eine kommagetrennte Liste Ihrer gewünschten Shop-IDs ein. Ohne Angabe des Filters werden alle vorhandenen Subshops bearbeitet.
 
 ## Deinstallation
 
