@@ -89,6 +89,6 @@ composer remove d3/taxratesadjustment --no-dev
   
 ## Support
 
-D3 Data Development (Inh. Thomas Dartsch)
-
-E-Mail: support@shopmodule.com
+- D3 Data Development (Inh. Thomas Dartsch)
+- Home: [www.d3data.de](https://www.d3data.de)
+- E-Mail: support@shopmodule.com
