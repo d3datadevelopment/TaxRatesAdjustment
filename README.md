@@ -79,6 +79,14 @@ Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze n
 composer remove d3/taxratesadjustment --no-dev
 ```
 
+## Änderungshistorie
+
+- 2.0.0: 
+  - scriptgesteuertes Ändern der Steuersätze (generell und artikelspezifisch) reduzierend und erhöhend für jeden Subshop
+  - per Argument übersteuerbare Ausführungsbeschränkung
+- 2.1.0
+  - Subshopfilter eingefügt
+  
 ## Support
 
 D3 Data Development (Inh. Thomas Dartsch)
