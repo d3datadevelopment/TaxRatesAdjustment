@@ -1,6 +1,6 @@
-# TaxRatesAdjustment
+# TaxRatesAdjustment / Anpassung der MwSt.-Sätze
 
-## Inhalte
+## Funktionsumfang
 
 ### Was kann das Modul?
 
@@ -10,7 +10,7 @@ Die Anpassung kann über entsprechende Cronjobs zeitgesteuert zum Stichtermin au
 
 Die Scripte ändern:
 - den im Shop eingestellten allgemeinen Steuersatz
-- an den Artikeln hinterlegten speziellen Steuersätzen
+- an den Artikeln hinterlegte spezielle Steuersätze
 
 - von 19% zu 16% und
 - von 7% zu 5%
@@ -38,7 +38,7 @@ Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim 
 
 ## Installation
 
-Zur Installation werden noch keine Einstellungen geändert. Führen Sie diesen Befehl im Shophauptverzeichnis aus:
+Während Installation werden noch keine Shopeinstellungen geändert. Führen Sie diesen Befehl im Shophauptverzeichnis aus:
 
 
 ```
@@ -63,15 +63,15 @@ Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 f
 [ Shoppfad ]/vendor/bin/raiseTaxRate
 ```
 
-Für die Einrichtung der Cronjobs kontakten Sie bei Fragen bitte Ihren Hostingprovider.
+Bei Fragen zur Einrichtung der Cronjobs kontaktieren Sie bitte Ihren Hostingprovider.
 
-Püfen Sie nach Ausführung der Scripte bitte zeitnah Ihren Shop auf richtige Funktion.
+Prüfen Sie nach Ausführung der Scripte Ihren Shop bitte zeitnah auf richtige Funktion.
 
-Zu Definition, welche Subshops bearbeitet werden sollen, kann der Parameter `-s 1,3,4` verwendet werden. Setzen Sie statt der `1,3,4` eine kommagetrennte Liste Ihrer gewünschten Shop-IDs ein. Ohne Angabe des Filters werden alle vorhandenen Subshops bearbeitet.
+Zur Definition, welche Subshops bearbeitet werden sollen, kann der Parameter `-s 1,3,4` verwendet werden. Setzen Sie statt der `1,3,4` eine kommagetrennte Liste Ihrer gewünschten Shop-IDs ein. Ohne Angabe des Filters werden alle vorhandenen Subshops bearbeitet.
 
 ## Deinstallation
 
-Entfernen Sie die eingerichteten Cronjobs nach den beiden Ausführungszeitpunkten, um versehentliche Auslösungen zu vermeiden.
+Entfernen Sie die eingerichteten Cronjobs nach den beiden Ausführungszeitpunkten, um versehentliche spätere Auslösungen zu vermeiden.
 
 Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze nicht mehr benötigt. Dann kann dieses Paket mit folgendem Befehl wieder aus der Installation entfernt werden:
 
