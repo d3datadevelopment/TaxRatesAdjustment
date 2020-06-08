@@ -34,33 +34,32 @@ Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim 
 
 ## Systemanforderung
 
-- installierter OXID eShop in Version 6 und dessen Anforderungen
+- installierter OXID eShop in Version 4.10 (CE, PE) oder 5.3 (EE) und dessen Anforderungen
+
+Ein Einsatz in älteren Shopversionen ist vor dem Livebetrieb zwingend auf Verwendbarkeit zu testen.
 
 ## Installation
 
-Während Installation werden noch keine Shopeinstellungen geändert. Führen Sie diesen Befehl im Shophauptverzeichnis aus:
+Kopieren Sie den Inhalt des `copy_this`-Ordners in Ihren Shopordner. Achten Sie darauf, auch die verborgene .htaccess mitzukopieren, dass die Scripte nicht über den Browser von außen erreichbar sind.
 
-
-```
-composer require d3/taxratesadjustment:"^2.0" --no-dev
-```
+Vergeben Sie den beiden Scripten im Ordner `_taxRates/bin` Ausführungsrechte.
 
 ## Ausführung
 
-- Bitte führen Sie die Umstellung rechtzeitig vorab in einer Testinstallation durch und prüfen Ihren Shop, um Fehler im Livebetrieb zu vermeiden. Zum Übergehen der Datumsprüfung können Sie den folgenden Befehlen einfach den Parameter `-d` anhängen: z.B. `[ Shoppfad ]/vendor/bin/reduceTaxRate -d`. Für den Livebetrieb soll der Parameter nicht verwendet werden.
+- Bitte führen Sie die Umstellung rechtzeitig vorab in einer Testinstallation durch und prüfen Ihren Shop, um Fehler im Livebetrieb zu vermeiden. Zum Übergehen der Datumsprüfung können Sie den folgenden Befehlen einfach den Parameter `-d` anhängen: z.B. `[ Shoppfad ]/_taxRates/bin/reduceTaxRate -d`. Für den Livebetrieb soll der Parameter nicht verwendet werden.
 - Legen Sie sich unbedingt vor jeder Ausführung eine Datensicherung an. Die Software wird nach bestem Wissen erstellt. Durch die Vielzahl an möglichen Shopkonstellationen können  wir jedoch keine Gewährleistung für die richtige Ausführung und eventuelle Folgen übernehmen.
 
 Richten Sie einen ersten Cronjob ein, der idealerweise am 01.07.2020 um 00:00 folgendes Script startet, um die Steuersätze zu senken. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell aus:
 
 ```
-[ Shoppfad ]/vendor/bin/reduceTaxRate
+[ Shoppfad ]/_taxRates/bin/reduceTaxRate
 ```
 
 Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 folgendes Script startet, um die Steuersätze zurückzusetzen. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell aus:
 
 
 ```
-[ Shoppfad ]/vendor/bin/raiseTaxRate
+[ Shoppfad ]/_taxRates/bin/raiseTaxRate
 ```
 
 Bei Fragen zur Einrichtung der Cronjobs kontaktieren Sie bitte Ihren Hostingprovider.
@@ -73,18 +72,13 @@ Zur Definition, welche Subshops bearbeitet werden sollen, kann der Parameter `-s
 
 Entfernen Sie die eingerichteten Cronjobs nach den beiden Ausführungszeitpunkten, um versehentliche spätere Auslösungen zu vermeiden.
 
-Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze nicht mehr benötigt. Dann kann dieses Paket mit folgendem Befehl wieder aus der Installation entfernt werden:
-
-```
-composer remove d3/taxratesadjustment --no-dev
-```
+Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze nicht mehr benötigt. Dann kann der Ordner `_taxRates` wieder komplett aus der Installation entfernt werden.
 
 ## Änderungshistorie
 
-- 2.0.0: 
+- 1.0.0: 
   - scriptgesteuertes Ändern der Steuersätze (generell und artikelspezifisch) reduzierend und erhöhend für jeden Subshop
   - per Argument übersteuerbare Ausführungsbeschränkung
-- 2.1.0
   - Subshopfilter eingefügt
   
 ## Support

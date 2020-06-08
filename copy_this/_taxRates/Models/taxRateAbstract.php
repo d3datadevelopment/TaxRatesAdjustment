@@ -15,12 +15,11 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
-use OxidEsales\Eshop\Application\Model\Article;
-use OxidEsales\Eshop\Application\Model\Shop;
-use OxidEsales\Eshop\Core\Config;
-use OxidEsales\Eshop\Core\DatabaseProvider;
-use OxidEsales\Eshop\Core\Exception\StandardException;
-use OxidEsales\Eshop\Core\Registry;
+use oxArticle;
+use oxConfig;
+use oxDb;
+use oxRegistry;
+use oxShop;
 
 abstract class taxRateAbstract
 {
@@ -50,10 +49,6 @@ abstract class taxRateAbstract
         return (time() > strtotime($from)) && (time() < strtotime($to));
     }
 
-    /**
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
-     */
     public function run()
     {
         if (false === $this->isInExecutableTimeRange()) {
@@ -64,27 +59,23 @@ abstract class taxRateAbstract
         $this->changeTaxRates();
     }
 
-    /**
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
-     */
     public function changeTaxRates()
     {
-        $shop = new Shop();
+        $shop = new oxShop();
 
         // use shop list, when parameter -d is set
         $opts = getopt("s:");
 
         $where = isset($opts['s']) ?
             "oxid IN (".implode(', ', array_map(
-                    function ($a) {return DatabaseProvider::getDb()->quote(trim($a));},
+                    function ($a) {return oxDb::getDb()->quote(trim($a));},
                     explode(',', $opts['s']))
             ).")" :
             "1";
 
         $q = "SELECT oxid FROM " . $shop->getCoreTableName() . " WHERE ".$where ;
 
-        foreach ( DatabaseProvider::getDb( DatabaseProvider::FETCH_MODE_ASSOC )->getAll( $q ) as $record ) {
+        foreach (oxDb::getDb(oxDb::FETCH_MODE_ASSOC )->getAll( $q ) as $record ) {
             $shopId = (int) $record["oxid"];
             $this->switchToShop($shopId);
             $this->changeDefaultTaxRate( $shopId );
@@ -99,18 +90,18 @@ abstract class taxRateAbstract
      */
     public function switchToShop($id)
     {
-        if (Registry::getConfig()->isMall()
-            && $id != Registry::getConfig()->getActiveShop()->getId()
+        if (oxRegistry::getConfig()->isMall()
+            && $id != oxRegistry::getConfig()->getActiveShop()->getId()
         ) {
-            /** @var Config $oNewConf */
-            $oNewConf = new Config();
+            /** @var oxConfig $oNewConf */
+            $oNewConf = new oxConfig();
             $oNewConf->setShopId($id);
             $oNewConf->init();
 
-            Registry::getConfig()->onShopChange();
-            Registry::getSession()->setVariable('actshop', $id);
-            Registry::getSession()->setVariable('currentadminshop', $id);
-            Registry::getConfig()->setShopId($id);
+            oxRegistry::getConfig()->onShopChange();
+            oxRegistry::getSession()->setVariable('actshop', $id);
+            oxRegistry::getSession()->setVariable('currentadminshop', $id);
+            oxRegistry::getConfig()->setShopId($id);
         }
     }
 
@@ -119,7 +110,7 @@ abstract class taxRateAbstract
      */
     public function changeDefaultTaxRate($shopId)
     {
-        $oCurrConfig = new Config();
+        $oCurrConfig = new oxConfig();
         $newVat = $this->rateChanges[(int) $oCurrConfig->getConfigParam('dDefaultVAT')];
 
         if ($newVat) {
@@ -132,21 +123,18 @@ abstract class taxRateAbstract
 
     /**
      * @param int $shopId
-     *
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
      */
     public function changeArticlesTaxRate($shopId)
     {
-        $article = oxNew(Article::class);
+        $article = oxNew(oxArticle::class);
         $q = "SELECT oxid FROM ".$article->getCoreTableName()." 
             WHERE oxvat IN (".implode(', ', array_keys($this->rateChanges)).") 
-            AND oxshopid = ".DatabaseProvider::getDb()->quote($shopId);
+            AND oxshopid = ". oxDb::getDb()->quote($shopId);
 
         $counter = 0;
-        foreach (DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC)->getAll($q) as $articleRecord) {
+        foreach (oxDb::getDb(oxDb::FETCH_MODE_ASSOC)->getAll($q) as $articleRecord) {
             $articleId = $articleRecord['oxid'];
-            $article = oxNew(Article::class);
+            $article = oxNew(oxArticle::class);
             $article->load($articleId);
             $article->assign(
                 [
@@ -163,9 +151,9 @@ abstract class taxRateAbstract
 
         $q = "SELECT count(*) FROM ".$article->getCoreTableName()." 
             WHERE oxvat IN (".implode(', ', array_keys($this->rateChanges)).") 
-            AND oxshopid = ".DatabaseProvider::getDb()->quote($shopId);
+            AND oxshopid = ". oxDb::getDb()->quote($shopId);
 
-        if ($counter = DatabaseProvider::getDb()->getOne($q)) {
+        if ($counter = oxDb::getDb()->getOne($q)) {
             echo "the tax rate update for " . $counter . " article(s) was failed in shop " . $shopId . PHP_EOL;
         }
     }

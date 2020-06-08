@@ -6,6 +6,7 @@ $currentDirectory = __DIR__ . '/';
 $filePath = $currentDirectory . $filePath;
 
 require($filePath);
+require(__DIR__.'/../Models/reduceTaxRate.php');
 
 $change = new \D3\TaxRatesAdjustment\Models\reduceTaxRate();
 try {

@@ -5,7 +5,7 @@ if (!empty($bootstrapFileName)) {
     $bootstrapFileName = realpath(trim(getenv('ESHOP_BOOTSTRAP_PATH')));
 } else {
     $count = 0;
-    $bootstrapFileName = '../../source/bootstrap.php';
+    $bootstrapFileName = '../bootstrap.php';
     $currentDirectory = __DIR__ . '/';
     while ($count < 5) {
         $count++;
