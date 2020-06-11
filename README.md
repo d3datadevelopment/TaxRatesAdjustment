@@ -49,14 +49,13 @@ Vergeben Sie den beiden Scripten im Ordner `_taxRates/bin` Ausführungsrechte.
 - Bitte führen Sie die Umstellung rechtzeitig vorab in einer Testinstallation durch und prüfen Ihren Shop, um Fehler im Livebetrieb zu vermeiden. Zum Übergehen der Datumsprüfung können Sie den folgenden Befehlen einfach den Parameter `-d` anhängen: z.B. `[ Shoppfad ]/_taxRates/bin/reduceTaxRate -d`. Für den Livebetrieb soll der Parameter nicht verwendet werden.
 - Legen Sie sich unbedingt vor jeder Ausführung eine Datensicherung an. Die Software wird nach bestem Wissen erstellt. Durch die Vielzahl an möglichen Shopkonstellationen können  wir jedoch keine Gewährleistung für die richtige Ausführung und eventuelle Folgen übernehmen.
 
-Richten Sie einen ersten Cronjob ein, der idealerweise am 01.07.2020 um 00:00 folgendes Script startet, um die Steuersätze zu senken. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell aus:
+Richten Sie einen ersten Cronjob ein, der idealerweise am 01.07.2020 um 00:00 folgendes Script startet, um die Steuersätze zu senken. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell auf der Serverkonsole aus:
 
 ```
 [ Shoppfad ]/_taxRates/bin/reduceTaxRate
 ```
 
-Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 folgendes Script startet, um die Steuersätze zurückzusetzen. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell aus:
-
+Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 folgendes Script startet, um die Steuersätze zurückzusetzen. Alternativ führen Sie dieses Script zum passenden Zeitpunkt manuell auf der Serverkonsole aus:
 
 ```
 [ Shoppfad ]/_taxRates/bin/raiseTaxRate
@@ -67,6 +66,12 @@ Bei Fragen zur Einrichtung der Cronjobs kontaktieren Sie bitte Ihren Hostingprov
 Prüfen Sie nach Ausführung der Scripte Ihren Shop bitte zeitnah auf richtige Funktion.
 
 Zur Definition, welche Subshops bearbeitet werden sollen, kann der Parameter `-s 1,3,4` verwendet werden. Setzen Sie statt der `1,3,4` eine kommagetrennte Liste Ihrer gewünschten Shop-IDs ein. Ohne Angabe des Filters werden alle vorhandenen Subshops bearbeitet.
+
+Sollen die Scripte über eine PHP-Version gestartet werden, die nicht als Standard am Server definiert ist, setzen Sie den Pfad zur passenden PHP-Version vor den Scriptaufruf:
+
+```
+/usr/local/php5.6/bin/php [ Shoppfad ]...
+```
 
 ## Deinstallation
 

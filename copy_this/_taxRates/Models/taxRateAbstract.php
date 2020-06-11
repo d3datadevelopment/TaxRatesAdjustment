@@ -76,7 +76,7 @@ abstract class taxRateAbstract
         $q = "SELECT oxid FROM " . $shop->getCoreTableName() . " WHERE ".$where ;
 
         foreach (oxDb::getDb(oxDb::FETCH_MODE_ASSOC )->getAll( $q ) as $record ) {
-            $shopId = (int) $record["oxid"];
+            $shopId = $record["oxid"];
             $this->switchToShop($shopId);
             $this->changeDefaultTaxRate( $shopId );
             $this->changeArticlesTaxRate( $shopId );
