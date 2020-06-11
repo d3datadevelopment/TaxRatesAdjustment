@@ -86,6 +86,9 @@ Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze n
   - per Argument übersteuerbare Ausführungsbeschränkung
   - Subshopfilter eingefügt
   
+- 1.0.1
+  - falsche Konvertierung der ShopId entfernt
+  
 ## Support
 
 - D3 Data Development (Inh. Thomas Dartsch)
