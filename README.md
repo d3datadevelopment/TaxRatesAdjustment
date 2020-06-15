@@ -28,7 +28,9 @@ Weiterhin werden auch die absoluten Artikelpreise und Berechnungswege nicht ange
 - Werden Artikelpreise brutto gepflegt und angezeigt, werden danach weiterhin die bisherigen Preise verwendet, jedoch mit geändertem Steuersatz.
 - Werden Artikelpreise netto gepflegt und brutto angezeigt, ändern sich die daraus errechneten Bruttopreise.
 
-Passen Sie die Artikelpreise danach ggf. an.
+Passen Sie die Artikelpreise danach ggf. an. Beachten Sie hierbei speziell die Artikel, die einer Preisbindung unterliegen.
+
+Artikel, die von der Steuersenkung ausgenommen sind (z.B. Tabakwaren) können hierbei nicht berücksichtigt werden und erfordern eine manuelle Nachbearbeitung.
 
 Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim Zurücksetzen ebenfalls auf 19% bzw. 7% angehoben. Eine Unterscheidung, welcher Steuersatz vorab reduziert wurde, gibt es nicht. Diese Anpassung muss dann manuell durchgeführt werden. 
 
