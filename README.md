@@ -38,13 +38,12 @@ Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim 
 
 - installierter OXID eShop in Version 6 und dessen Anforderungen
 
-## Installation
+## Installation / Update
 
 Während Installation werden noch keine Shopeinstellungen geändert. Führen Sie diesen Befehl im Shophauptverzeichnis aus:
 
-
 ```
-composer require d3/taxratesadjustment:"^2.0" --no-dev
+composer require d3/taxratesadjustment:"^2.0" --update-no-dev
 ```
 
 ## Ausführung
@@ -59,7 +58,6 @@ Richten Sie einen ersten Cronjob ein, der idealerweise am 01.07.2020 um 00:00 fo
 ```
 
 Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 folgendes Script startet, um die Steuersätze zurückzusetzen. Alternativ führen Sie dieses Script zum passenden Zeitpunkt auf der Serverkonsole manuell aus:
-
 
 ```
 [ Shoppfad ]/vendor/bin/raiseTaxRate
@@ -84,7 +82,7 @@ Entfernen Sie die eingerichteten Cronjobs nach den beiden Ausführungszeitpunkte
 Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze nicht mehr benötigt. Dann kann dieses Paket mit folgendem Befehl wieder aus der Installation entfernt werden:
 
 ```
-composer remove d3/taxratesadjustment --no-dev
+composer remove d3/taxratesadjustment --update-no-dev
 ```
 
 ## Änderungshistorie
@@ -94,6 +92,8 @@ composer remove d3/taxratesadjustment --no-dev
   - per Argument übersteuerbare Ausführungsbeschränkung
 - 2.1.0
   - Subshopfilter eingefügt
+- 2.1.1
+  - Composer Command korrigiert
   
 ## Support
 
