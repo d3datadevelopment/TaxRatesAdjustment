@@ -40,7 +40,7 @@ Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim 
 
 Ein Einsatz in älteren Shopversionen ist vor dem Livebetrieb zwingend auf Verwendbarkeit zu testen.
 
-## Installation
+## Installation / Update
 
 Kopieren Sie den Inhalt des `copy_this`-Ordners in Ihren Shopordner. Achten Sie darauf, auch die verborgene .htaccess mitzukopieren, dass die Scripte nicht über den Browser von außen erreichbar sind.
 
