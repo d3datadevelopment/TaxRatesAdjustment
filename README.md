@@ -69,11 +69,7 @@ Prüfen Sie nach Ausführung der Scripte Ihren Shop bitte zeitnah auf richtige F
 
 Zur Definition, welche Subshops bearbeitet werden sollen, kann der Parameter `-s 1,3,4` verwendet werden. Setzen Sie statt der `1,3,4` eine kommagetrennte Liste Ihrer gewünschten Shop-IDs ein. Ohne Angabe des Filters werden alle vorhandenen Subshops bearbeitet.
 
-Sollen die Scripte über eine PHP-Version gestartet werden, die nicht als Standard am Server definiert ist, setzen Sie den Pfad zur passenden PHP-Version vor den Scriptaufruf:
-
-```
-/usr/local/php5.6/bin/php [ Shoppfad ]...
-```
+Sollen die Scripte über eine PHP-Version gestartet werden, die nicht als Standard am Server definiert ist, ändern Sie den Pfad zur passenden PHP-Version in den beiden bin-Scripten.
 
 ## Deinstallation
 
@@ -94,6 +90,8 @@ composer remove d3/taxratesadjustment --update-no-dev
   - Subshopfilter eingefügt
 - 2.1.1
   - Composer Command korrigiert
+- 2.1.2
+  - PHP-Versionshinweis angepasst
   
 ## Support
 
