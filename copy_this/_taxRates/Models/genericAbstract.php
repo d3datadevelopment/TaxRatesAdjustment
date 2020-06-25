@@ -15,6 +15,9 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
+use oxConfig;
+use oxRegistry;
+
 abstract class genericAbstract
 {
     public $rateChanges = [

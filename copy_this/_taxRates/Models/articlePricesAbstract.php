@@ -15,6 +15,8 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
+use oxRegistry;
+
 require_once('genericAbstract.php');
 
 abstract class articlePricesAbstract extends genericAbstract
@@ -22,27 +24,27 @@ abstract class articlePricesAbstract extends genericAbstract
     public $baseQueriesDefaultTax = [
         //'UPDATE oxarticles SET oxprice = (oxprice / 1.19 * 1.16) WHERE oxshopid = 'oxbaseshop' AND (oxvat IS NULL);',
         // default prices
-        'UPDATE oxarticles SET oxprice = (oxprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IS NULL)',
+        'UPDATE oxarticles SET oxprice = (oxprice / ? * ?) WHERE oxshopid = ? AND (oxvat IS NULL)',
         // recommended retail price
-        'UPDATE oxarticles SET oxtprice = (oxtprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IS NULL)',
+        'UPDATE oxarticles SET oxtprice = (oxtprice / ? * ?) WHERE oxshopid = ? AND (oxvat IS NULL)',
 
         // varminprices
-        'UPDATE oxarticles SET oxvarminprice = (oxvarminprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IS NULL)',
+        'UPDATE oxarticles SET oxvarminprice = (oxvarminprice / ? * ?) WHERE oxshopid = ? AND (oxvat IS NULL)',
         // varmaxprices
-        'UPDATE oxarticles SET oxvarmaxprice = (oxvarmaxprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IS NULL)'
+        'UPDATE oxarticles SET oxvarmaxprice = (oxvarmaxprice / ? * ?) WHERE oxshopid = ? AND (oxvat IS NULL)'
     ];
 
     public $baseQueriesCustomTax = [
         //'UPDATE oxarticles SET oxprice = (oxprice / 1.19 * 1.16) WHERE oxshopid = 'oxbaseshop' AND (oxvat IN(16, 19));',
         // default prices
-        'UPDATE oxarticles SET oxprice = (oxprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IN(:oldTaxRate, :newTaxRate))',
+        'UPDATE oxarticles SET oxprice = (oxprice / ? * ?) WHERE oxshopid = ? AND (oxvat IN(?, ?))',
         // recommended retail price
-        'UPDATE oxarticles SET oxtprice = (oxtprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IN(:oldTaxRate, :newTaxRate))',
+        'UPDATE oxarticles SET oxtprice = (oxtprice / ? * ?) WHERE oxshopid = ? AND (oxvat IN(?, ?))',
 
         // varminprices
-        'UPDATE oxarticles SET oxvarminprice = (oxvarminprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IN(:oldTaxRate, :newTaxRate))',
+        'UPDATE oxarticles SET oxvarminprice = (oxvarminprice / ? * ?) WHERE oxshopid = ? AND (oxvat IN(?, ?))',
         // varmaxprices
-        'UPDATE oxarticles SET oxvarmaxprice = (oxvarmaxprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IN(:oldTaxRate, :newTaxRate))'
+        'UPDATE oxarticles SET oxvarmaxprice = (oxvarmaxprice / ? * ?) WHERE oxshopid = ? AND (oxvat IN(?, ?))'
     ];
 
     public function run()
@@ -83,12 +85,11 @@ abstract class articlePricesAbstract extends genericAbstract
         }
     }
 
-
     public function changeSubshopArticlePricesDefaultTax($shopId)
     {
         $count = 0;
 
-        $oCurrConfig = new \oxConfig();
+        $oCurrConfig = oxRegistry::getConfig();
 
         $oldTaxRate = (int) $oCurrConfig->getConfigParam('dDefaultVAT');
         $newTaxRate = $this->rateChanges[$oldTaxRate];
@@ -102,13 +103,17 @@ abstract class articlePricesAbstract extends genericAbstract
         foreach ($this->baseQueriesDefaultTax as $query) {
             $db = \oxDb::getDb(\oxDb::FETCH_MODE_ASSOC);
 
-            $queryParameters = [
-                'shopid'    => $shopId,
-                'oldTaxRate'=> $oldTaxRate,
-                'oldTaxPercent' => 1 + ($oldTaxRate / 100),
-                'newTaxRate'=> $newTaxRate,
-                'newTaxPercent' => 1 + ($newTaxRate / 100),
+            $paramLength = substr_count($query, '?');
+
+            $allQueryParameters = [
+                1 + ($oldTaxRate / 100),
+                1 + ($newTaxRate / 100),
+                $shopId,
+                $oldTaxRate,
+                $newTaxRate,
             ];
+
+            $queryParameters = array_slice($allQueryParameters, 0, $paramLength);
 
             $count += $db->execute($query, $queryParameters);
         }
@@ -123,13 +128,17 @@ abstract class articlePricesAbstract extends genericAbstract
             foreach ($this->rateChanges as $oldTaxRate => $newTaxRate) {
                 $db = \oxDb::getDb(\oxDb::FETCH_MODE_ASSOC);
 
-                $queryParameters = [
-                    'shopid'    => $shopId,
-                    'oldTaxRate'=> $oldTaxRate,
-                    'oldTaxPercent' => 1 + ($oldTaxRate / 100),
-                    'newTaxRate'=> $newTaxRate,
-                    'newTaxPercent' => 1 + ($newTaxRate / 100),
+                $paramLength = substr_count($query, '?');
+
+                $allQueryParameters = [
+                    1 + ($oldTaxRate / 100),
+                    1 + ($newTaxRate / 100),
+                    $shopId,
+                    $oldTaxRate,
+                    $newTaxRate,
                 ];
+
+                $queryParameters = array_slice($allQueryParameters, 0, $paramLength);
 
                 $count += $db->execute($query, $queryParameters);
             }
