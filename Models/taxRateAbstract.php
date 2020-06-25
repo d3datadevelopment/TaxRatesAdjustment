@@ -22,34 +22,8 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
 
-abstract class taxRateAbstract
+abstract class taxRateAbstract extends genericAbstract
 {
-    public $execPeriod = [
-        '2020-01-01',
-        '2019-12-31',
-    ];
-
-    public $rateChanges = [
-        19  => 16,
-        7   => 5
-    ];
-
-    /**
-     * @return bool
-     */
-    public function isInExecutableTimeRange()
-    {
-        // skip time check, when parameter -d is set
-        $opts = getopt("d");
-        if (is_array($opts) && isset($opts['d'])) {
-            return true;
-        }
-
-        list($from, $to) = $this->execPeriod;
-
-        return (time() > strtotime($from)) && (time() < strtotime($to));
-    }
-
     /**
      * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
      * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
@@ -89,28 +63,6 @@ abstract class taxRateAbstract
             $this->switchToShop($shopId);
             $this->changeDefaultTaxRate( $shopId );
             $this->changeArticlesTaxRate( $shopId );
-        }
-    }
-
-    /**
-     * @param int $id
-     *
-     * @throws \oxConnectionException
-     */
-    public function switchToShop($id)
-    {
-        if (Registry::getConfig()->isMall()
-            && $id != Registry::getConfig()->getActiveShop()->getId()
-        ) {
-            /** @var Config $oNewConf */
-            $oNewConf = new Config();
-            $oNewConf->setShopId($id);
-            $oNewConf->init();
-
-            Registry::getConfig()->onShopChange();
-            Registry::getSession()->setVariable('actshop', $id);
-            Registry::getSession()->setVariable('currentadminshop', $id);
-            Registry::getConfig()->setShopId($id);
         }
     }
 

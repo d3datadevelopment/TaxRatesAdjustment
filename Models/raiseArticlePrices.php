@@ -13,13 +13,9 @@
  * @link          http://www.oxidmodule.com
  */
 
-// ShopId
-
 namespace D3\TaxRatesAdjustment\Models;
 
-use OxidEsales\Eshop\Core\Registry;
-
-class raiseTaxRate extends taxRateAbstract
+class raiseArticlePrices extends articlePricesAbstract
 {
     use raiseTrait;
 }

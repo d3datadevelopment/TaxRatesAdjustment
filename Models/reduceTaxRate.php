@@ -19,8 +19,5 @@ use OxidEsales\Eshop\Core\Registry;
 
 class reduceTaxRate extends taxRateAbstract
 {
-    public $execPeriod = [
-        '2020-06-27',
-        '2020-07-03',
-    ];
+    use reduceTrait;
 }

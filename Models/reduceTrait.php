@@ -13,13 +13,12 @@
  * @link          http://www.oxidmodule.com
  */
 
-// ShopId
-
 namespace D3\TaxRatesAdjustment\Models;
 
-use OxidEsales\Eshop\Core\Registry;
-
-class raiseTaxRate extends taxRateAbstract
+trait reduceTrait
 {
-    use raiseTrait;
+    public $execPeriod = [
+        '2020-06-27',
+        '2020-07-03',
+    ];
 }

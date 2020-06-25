@@ -1,6 +1,6 @@
 {
     "name": "d3/taxratesadjustment",
-    "description": "adjusts the tax rates for the German economic stimulus package 2020 / 2021",
+    "description": "adjusts the tax rates and article prices for the German economic stimulus package 2020 / 2021",
     "type": "library",
     "require": {
         "oxid-esales/oxideshop-ce": "^6.0"
@@ -20,6 +20,8 @@
     },
     "bin": [
         "bin/reduceTaxRate",
-        "bin/raiseTaxRate"
+        "bin/raiseTaxRate",
+        "bin/reduceArticlePrices",
+        "bin/raiseArticlePrices"
     ]
 }

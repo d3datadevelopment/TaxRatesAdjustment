@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+$filePath = '../bootstrap.php';
+$currentDirectory = __DIR__ . '/';
+$filePath = $currentDirectory . $filePath;
+
+require($filePath);
+
+$change = new \D3\TaxRatesAdjustment\Models\reduceArticlePrices();
+try {
+    $change->run();
+} catch ( \Exception $e) {
+    echo $e->getMessage();
+}
