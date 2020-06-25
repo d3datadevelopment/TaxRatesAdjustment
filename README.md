@@ -61,7 +61,7 @@ Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim 
 Während der Installation werden noch keine Shopeinstellungen geändert. Führen Sie diesen Befehl im Shophauptverzeichnis aus:
 
 ```
-composer require d3/taxratesadjustment:"^2.0" --update-no-dev
+composer require d3/taxratesadjustment:"dev-rel_2.x_articlePrices" --update-no-dev
 ```
 
 ## Ausführung
