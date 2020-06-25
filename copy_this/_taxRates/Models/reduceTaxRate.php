@@ -15,7 +15,8 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
-require 'taxRateAbstract.php';
+require_once 'taxRateAbstract.php';
+require_once 'reduceTrait.php';
 
 class reduceTaxRate extends taxRateAbstract
 {

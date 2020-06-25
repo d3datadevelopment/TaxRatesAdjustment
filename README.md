@@ -62,7 +62,7 @@ Ein Einsatz in älteren Shopversionen ist vor dem Livebetrieb zwingend auf Verwe
 
 Kopieren Sie den Inhalt des `copy_this`-Ordners in Ihren Shopordner. Achten Sie darauf, auch die verborgene .htaccess mitzukopieren, dass die Scripte nicht über den Browser von außen erreichbar sind.
 
-Vergeben Sie den beiden Scripten im Ordner `_taxRates/bin` Ausführungsrechte.
+Vergeben Sie den Scripten im Ordner `_taxRates/bin` Ausführungsrechte.
 
 ## Ausführung
 
@@ -86,13 +86,13 @@ Nutzen Sie für die Preisanpassungen die folgenden Scripte als Cronjob zum passe
 um die Artikelpreise zu senken::
 
 ```
-[ Shoppfad ]/vendor/bin/reduceArticlePrices
+[ Shoppfad ]/_taxRates/bin/reduceArticlePrices
 ```
 
 um die Artikelpreise zurückzusetzen:
 
 ```
-[ Shoppfad ]/vendor/bin/raiseArtikelPrices
+[ Shoppfad ]/_taxRates/bin/raiseArtikelPrices
 ```
 
 Führen Sie die Preisanpassungsscripte nur ein einziges Mal aus, da die Preise sonst mehrfach gesenkt / erhöht werden.

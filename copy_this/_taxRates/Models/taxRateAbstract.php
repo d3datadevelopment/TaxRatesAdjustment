@@ -21,12 +21,10 @@ use oxDb;
 use oxRegistry;
 use oxShop;
 
+require_once('genericAbstract.php');
+
 abstract class taxRateAbstract extends genericAbstract
 {
-    /**
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
-     */
     public function run()
     {
         if (false === $this->isInExecutableTimeRange()) {

@@ -15,9 +15,6 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
-use OxidEsales\Eshop\Core\Config;
-use OxidEsales\Eshop\Core\Registry;
-
 abstract class genericAbstract
 {
     public $rateChanges = [
@@ -48,18 +45,18 @@ abstract class genericAbstract
      */
     public function switchToShop($id)
     {
-        if (Registry::getConfig()->isMall()
-            && $id != Registry::getConfig()->getActiveShop()->getId()
+        if (oxRegistry::getConfig()->isMall()
+            && $id != oxRegistry::getConfig()->getActiveShop()->getId()
         ) {
-            /** @var Config $oNewConf */
-            $oNewConf = new Config();
+            /** @var oxConfig $oNewConf */
+            $oNewConf = new oxConfig();
             $oNewConf->setShopId($id);
             $oNewConf->init();
 
-            Registry::getConfig()->onShopChange();
-            Registry::getSession()->setVariable('actshop', $id);
-            Registry::getSession()->setVariable('currentadminshop', $id);
-            Registry::getConfig()->setShopId($id);
+            oxRegistry::getConfig()->onShopChange();
+            oxRegistry::getSession()->setVariable('actshop', $id);
+            oxRegistry::getSession()->setVariable('currentadminshop', $id);
+            oxRegistry::getConfig()->setShopId($id);
         }
     }
 }

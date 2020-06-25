@@ -15,6 +15,9 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
+require_once('articlePricesAbstract.php');
+require_once('raiseTrait.php');
+
 class raiseArticlePrices extends articlePricesAbstract
 {
     use raiseTrait;

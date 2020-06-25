@@ -15,10 +15,7 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
-use D3\ModCfg\Application\Model\d3database;
-use OxidEsales\Eshop\Application\Model\Shop;
-use OxidEsales\Eshop\Core\Config;
-use OxidEsales\Eshop\Core\DatabaseProvider;
+require_once('genericAbstract.php');
 
 abstract class articlePricesAbstract extends genericAbstract
 {
@@ -48,10 +45,6 @@ abstract class articlePricesAbstract extends genericAbstract
         'UPDATE oxarticles SET oxvarmaxprice = (oxvarmaxprice / :oldTaxPercent * :newTaxPercent) WHERE oxshopid = :shopid AND (oxvat IN(:oldTaxRate, :newTaxRate))'
     ];
 
-    /**
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
-     */
     public function run()
     {
         if (false === $this->isInExecutableTimeRange()) {
@@ -62,27 +55,23 @@ abstract class articlePricesAbstract extends genericAbstract
         $this->changeArticlePrices();
     }
 
-    /**
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
-     */
     public function changeArticlePrices()
     {
-        $shop = new Shop();
+        $shop = new \oxShop();
 
         // use shop list, when parameter -d is set
         $opts = getopt("s:");
 
         $where = isset($opts['s']) ?
             "oxid IN (".implode(', ', array_map(
-                                        function ($a) {return DatabaseProvider::getDb()->quote(trim($a));},
+                                        function ($a) {return \oxDb::getDb()->quote(trim($a));},
                                         explode(',', $opts['s']))
             ).")" :
             "1";
 
         $q = "SELECT oxid FROM " . $shop->getCoreTableName() . " WHERE ".$where ;
 
-        foreach ( DatabaseProvider::getDb( DatabaseProvider::FETCH_MODE_ASSOC )->getAll( $q ) as $record ) {
+        foreach ( \oxDb::getDb(\oxDb::FETCH_MODE_ASSOC)->getAll( $q ) as $record ) {
             $shopId = (int) $record["oxid"];
 
             $count = 0;
@@ -99,7 +88,7 @@ abstract class articlePricesAbstract extends genericAbstract
     {
         $count = 0;
 
-        $oCurrConfig = new Config();
+        $oCurrConfig = new \oxConfig();
 
         $oldTaxRate = (int) $oCurrConfig->getConfigParam('dDefaultVAT');
         $newTaxRate = $this->rateChanges[$oldTaxRate];
@@ -111,7 +100,7 @@ abstract class articlePricesAbstract extends genericAbstract
         }
 
         foreach ($this->baseQueriesDefaultTax as $query) {
-            $db = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
+            $db = \oxDb::getDb(\oxDb::FETCH_MODE_ASSOC);
 
             $queryParameters = [
                 'shopid'    => $shopId,
@@ -132,7 +121,7 @@ abstract class articlePricesAbstract extends genericAbstract
         $count = 0;
         foreach ($this->baseQueriesCustomTax as $query) {
             foreach ($this->rateChanges as $oldTaxRate => $newTaxRate) {
-                $db = DatabaseProvider::getDb(DatabaseProvider::FETCH_MODE_ASSOC);
+                $db = \oxDb::getDb(\oxDb::FETCH_MODE_ASSOC);
 
                 $queryParameters = [
                     'shopid'    => $shopId,
