@@ -15,9 +15,15 @@
 
 namespace D3\TaxRatesAdjustment\Models;
 
-require 'taxRateAbstract.php';
-
-class reduceTaxRate extends taxRateAbstract
+trait raiseTrait
 {
-    use reduceTrait;
+    public $execPeriod = [
+        '2020-12-28',
+        '2021-01-03',
+    ];
+
+    public function __construct()
+    {
+        $this->rateChanges = array_flip($this->rateChanges);
+    }
 }

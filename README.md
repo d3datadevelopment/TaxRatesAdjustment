@@ -5,16 +5,30 @@
 ### Was kann das Modul?
 
 Dieses Modul stellt 2 Aufrufe bereit, die in Standardkonstellationen die MwSt.-Sätze anpasst, die in Deutschland zum 01.07.20 und zum 01.01.2021 geändert werden (Bestandteil des beschlossenen Corona-Konjunkturpaketes). 
+Weiterhin können über 2 weitere Aufrufe die Artikelpreise passend reduziert bzw. erhöht werden.
 
 Die Anpassung kann über entsprechende Cronjobs zeitgesteuert zum Stichtermin ausgeführt werden, ohne dass hierfür Ihre Anwesenheit erforderlich ist.
 
-Die Scripte ändern:
+Die Steuerscripte ändern:
 - den im Shop eingestellten allgemeinen Steuersatz
 - an den Artikeln hinterlegte spezielle Steuersätze
 
 - von 19% zu 16% und
 - von 7% zu 5%
 - sowie später auch zurück
+
+Die Steuerscripte ändern:
+- den Standardpreis der Artikel
+- den UVP-Preis der Artikel
+- den Varminpreis an Elternartikeln (der Variantenpreis selbst wird schon mit dem Standardpreis geändert)
+- den Varmaxpreis an Elternartikeln (der Variantenpreis selbst wird schon mit dem Standardpreis geändert)
+
+- von 19% zu 16% und
+- von 7% zu 5%
+- sowie später auch zurück
+
+Berücksichtigt werden artikelabhängige Steuersätze sowie auch der generelle Steuersatz des Shops. Bei den Varianten-MinPreisen und Max-Preisen wird der Steuersatz des Elternartikels zugrunde gelegt. 
+Weicht der Steuersatz der Varianten vom Elternartikel ab, muss dies manuell nachgearbeitet werden.
 
 Bei Multishopinstallationen (Enterprise Edition) können die zu aktualisierenden Subshops definiert werden.
 
@@ -28,9 +42,13 @@ Weiterhin werden auch die absoluten Artikelpreise und Berechnungswege nicht ange
 - Werden Artikelpreise brutto gepflegt und angezeigt, werden danach weiterhin die bisherigen Preise verwendet, jedoch mit geändertem Steuersatz.
 - Werden Artikelpreise netto gepflegt und brutto angezeigt, ändern sich die daraus errechneten Bruttopreise.
 
-Passen Sie die Artikelpreise danach ggf. an. Beachten Sie hierbei speziell die Artikel, die einer Preisbindung unterliegen.
+Für die Preisanpassungen stehen Ihnen die entsprechenden Scripte im Modul zur Verfügung.
+
+Beachten Sie bei der Preisanpassung speziell die Artikel, die einer Preisbindung unterliegen.
 
 Artikel, die von der Steuersenkung ausgenommen sind (z.B. Tabakwaren) können hierbei nicht berücksichtigt werden und erfordern eine manuelle Nachbearbeitung.
+
+Die Preise werden immer auf dem im Shop vorliegenden Preis angewandt. Hierbei kann es durchaus zu Rundungsungenauigkeiten kommen.
 
 Gibt es in Ihrem Shop reguläre Steuersätze mit 16% oder 5%, werden diese beim Zurücksetzen ebenfalls auf 19% bzw. 7% angehoben. Eine Unterscheidung, welcher Steuersatz vorab reduziert wurde, gibt es nicht. Diese Anpassung muss dann manuell durchgeführt werden. 
 
@@ -63,6 +81,22 @@ Richten Sie einen zweiten Cronjob ein, der idealerweise am 01.01.2021 um 00:00 f
 [ Shoppfad ]/_taxRates/bin/raiseTaxRate
 ```
 
+Nutzen Sie für die Preisanpassungen die folgenden Scripte als Cronjob zum passenden Moment:
+
+um die Artikelpreise zu senken::
+
+```
+[ Shoppfad ]/vendor/bin/reduceArticlePrices
+```
+
+um die Artikelpreise zurückzusetzen:
+
+```
+[ Shoppfad ]/vendor/bin/raiseArtikelPrices
+```
+
+Führen Sie die Preisanpassungsscripte nur ein einziges Mal aus, da die Preise sonst mehrfach gesenkt / erhöht werden.
+
 Bei Fragen zur Einrichtung der Cronjobs kontaktieren Sie bitte Ihren Hostingprovider.
 
 Prüfen Sie nach Ausführung der Scripte Ihren Shop bitte zeitnah auf richtige Funktion.
@@ -87,6 +121,8 @@ Nach heutigem Stand werden die Scripte nach dem Zurücksetzen der Steuersätze n
   - falsche Konvertierung der ShopId entfernt
 - 1.0.2
   - PHP-Versionshinweis angepasst
+- unreleased
+  - Preisanpassungsscripte eingefügt
   
 ## Support
 

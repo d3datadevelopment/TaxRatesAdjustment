@@ -19,13 +19,5 @@ require 'taxRateAbstract.php';
 
 class raiseTaxRate extends taxRateAbstract
 {
-    public $execPeriod = [
-        '2020-12-28',
-        '2021-01-03',
-    ];
-
-    public function __construct()
-    {
-        $this->rateChanges = array_flip($this->rateChanges);
-    }
+    use raiseTrait;
 }
