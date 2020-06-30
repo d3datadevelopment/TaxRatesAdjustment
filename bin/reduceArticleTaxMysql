@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Mail-Versand erfolgt bei Profihost ueber den Cronjob selbst, andere Provider erfordern ggf. expliziten Versand
+
+TODAY=$(date)
+HOST=$(hostname)
+DOMAIN='myhost.de'
+
+DOMAIN='myhost.de'
+MYSQLUSER='mysql_user'
+MYSQLPASS='mysql_pass'
+MYSQLDB='mysql_db'
+MYSQLHOST='127.0.0.1'
+MYSQLPORT='3306'
+
+echo "------------------------------------------------------------------------------------------"
+echo "USt.-Anpassung        01.07.2020"
+echo "Date: $TODAY          Host: $HOST ($DOMAIN)"
+echo "------------------------------------------------------------------------------------------"
+
+printf '\n   19%% -> 16%%\n\n'
+mysql5 -u$MYSQLUSER -p$MYSQLPASS -D$MYSQLDB -h$MYSQLHOST -P$MYSQLPORT -e 'SELECT CONCAT("Vor Umstellung: ", COUNT(*), " Artikel gefunden") as result FROM oxarticles WHERE oxvat = 19;'
+mysql5 -u$MYSQLUSER -p$MYSQLPASS -D$MYSQLDB -h$MYSQLHOST -P$MYSQLPORT -e 'UPDATE oxarticles SET oxvat = 16 WHERE oxvat = 19;'
+mysql5 -u$MYSQLUSER -p$MYSQLPASS -D$MYSQLDB -h$MYSQLHOST -P$MYSQLPORT -e 'SELECT CONCAT("Nach Umstellung: ", COUNT(*), " Artikel gefunden") as result FROM oxarticles WHERE oxvat = 19;'
+printf '\n'
+
+echo "------------------------------------------------------------------------------------------"
+printf '\n    7%% -> 5%%\n\n'
+mysql5 -u$MYSQLUSER -p$MYSQLPASS -D$MYSQLDB -h$MYSQLHOST -P$MYSQLPORT -e 'SELECT CONCAT("Vor Umstellung: ", COUNT(*), " Artikel gefunden") as result FROM oxarticles WHERE oxvat = 7;'
+mysql5 -u$MYSQLUSER -p$MYSQLPASS -D$MYSQLDB -h$MYSQLHOST -P$MYSQLPORT -e 'UPDATE oxarticles SET oxvat = 5 WHERE oxvat = 7;'
+mysql5 -u$MYSQLUSER -p$MYSQLPASS -D$MYSQLDB -h$MYSQLHOST -P$MYSQLPORT -e 'SELECT CONCAT("Nach Umstellung: ", COUNT(*), " Artikel gefunden") as result FROM oxarticles WHERE oxvat = 7;'
+printf '\n'
