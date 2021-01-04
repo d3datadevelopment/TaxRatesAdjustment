@@ -1,5 +1,9 @@
 # TaxRatesAdjustment / Anpassung der MwSt.-Sätze
 
+## eingestellte Modulpflege
+
+Dieses Modul wurde für die Steueranpassung in Deutschland im Jahr 2020 erstellt. Da diese Ereignisse vergangen sind, wird dieses Modul nicht mehr weiterentwickelt und auch nicht mehr unterstützt. 
+
 ## Funktionsumfang
 
 ### Was kann das Modul?
